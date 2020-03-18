@@ -1,8 +1,10 @@
 import 'dotenv/config';
 import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 
 const schema = gql`
   type Query {
@@ -31,7 +33,7 @@ const me = users[1];
 
 const resolvers = {
   Query: {
-    users: (parent, { id }) => {
+    user: (parent, { id }) => {
       return users[id];
     },
     me: () => {
