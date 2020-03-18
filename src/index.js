@@ -16,20 +16,44 @@ const schema = gql`
   }
 `;
 
+let users = {
+  1: {
+    id: '1',
+    username: 'Robin Wieruch',
+  },
+  2: {
+    id: '2',
+    username: 'Dave Davids',
+  },
+};
+
+const me = users[1];
+
 const resolvers = {
   Query: {
-    me: () => {
-      return {
-        username: 'Robin Wieruch',
-      };
+    users: (parent, { id }) => {
+      return users[id];
     },
-    user: (parent, args) => {
-      return {
-        username: 'Dave Davids',
-      };
+    me: () => {
+      return me;
     },
   },
 };
+
+// const resolvers = {
+//   Query: {
+//     me: () => {
+//       return {
+//         username: 'Robin Wieruch',
+//       };
+//     },
+//     user: (parent, args) => {
+//       return {
+//         username: 'Dave Davids',
+//       };
+//     },
+//   },
+// };
 
 const server = new ApolloServer({
   typeDefs: schema,
